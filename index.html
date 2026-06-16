@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pufferfish Session Feedback</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+margin:0;
+height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+background:#f5f7fa;
+}
+
+h1{
+font-size:48px;
+margin-bottom:50px;
+text-align:center;
+}
+
+.buttons{
+display:flex;
+gap:50px;
+}
+
+button{
+
+width:220px;
+height:220px;
+
+font-size:90px;
+
+border:none;
+border-radius:30px;
+
+cursor:pointer;
+
+transition:0.2s;
+background:white;
+}
+
+button:hover{
+transform:scale(1.08);
+}
+
+#message{
+
+margin-top:40px;
+
+font-size:40px;
+
+font-weight:bold;
+
+height:60px;
+}
+
+#stats{
+
+position:fixed;
+
+bottom:20px;
+
+right:20px;
+
+font-size:22px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>How are you leaving today's session?</h1>
+
+<div class="buttons">
+
+<button onclick="vote('sad')">
+😞
+</button>
+
+<button onclick="vote('neutral')">
+😐
+</button>
+
+<button onclick="vote('happy')">
+🙂
+</button>
+
+</div>
+
+<div id="message"></div>
+
+<div id="stats">
+
+😞 <span id="sadCount">0</span>
+
+|
+
+😐 <span id="neutralCount">0</span>
+
+|
+
+🙂 <span id="happyCount">0</span>
+
+</div>
+
+<script>
+
+let counts = {
+sad:0,
+neutral:0,
+happy:0
+};
+
+function vote(type){
+
+counts[type]++;
+
+document.getElementById(type+'Count').innerText = counts[type];
+
+document.getElementById('message').innerText='✅ Thank you!';
+
+setTimeout(()=>{
+
+document.getElementById('message').innerText='';
+
+},2000);
+
+}
+
+</script>
+
+</body>
+</html>
