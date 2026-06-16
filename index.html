@@ -4,136 +4,128 @@
 <title>Pufferfish Session Feedback</title>
 
 <style>
-
 body{
-font-family:Arial,sans-serif;
-margin:0;
-height:100vh;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-
-background:#f5f7fa;
+  font-family:Arial,sans-serif;
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#f5f7fa;
 }
 
 h1{
-font-size:48px;
-margin-bottom:50px;
-text-align:center;
+  font-size:42px;
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.question{
+  font-size:26px;
+  margin-top:30px;
+  margin-bottom:10px;
+  text-align:center;
 }
 
 .buttons{
-display:flex;
-gap:50px;
+  display:flex;
+  gap:40px;
+  margin-bottom:10px;
 }
 
 button{
-
-width:220px;
-height:220px;
-
-font-size:90px;
-
-border:none;
-border-radius:30px;
-
-cursor:pointer;
-
-transition:0.2s;
-background:white;
+  width:180px;
+  height:180px;
+  font-size:70px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.2s;
+  background:white;
 }
 
 button:hover{
-transform:scale(1.08);
+  transform:scale(1.08);
 }
 
 #message{
-
-margin-top:40px;
-
-font-size:40px;
-
-font-weight:bold;
-
-height:60px;
+  margin-top:25px;
+  font-size:28px;
+  font-weight:bold;
+  height:40px;
 }
 
 #stats{
-
-position:fixed;
-
-bottom:20px;
-
-right:20px;
-
-font-size:22px;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  font-size:18px;
+  background:white;
+  padding:12px;
+  border-radius:10px;
 }
-
 </style>
 </head>
 
 <body>
 
-<h1>How was the session today?</h1>
+<h1>Session Feedback</h1>
+
+<!-- QUESTION 1 -->
+<div class="question">How much did you enjoy today’s session?</div>
 
 <div class="buttons">
+<button onclick="vote('enjoy', 'bad')">🙁</button>
+<button onclick="vote('enjoy', 'neutral')">😐</button>
+<button onclick="vote('enjoy', 'good')">🙂</button>
+</div>
 
-<button onclick="vote('sad')">
-😞
-</button>
+<!-- QUESTION 2 -->
+<div class="question">How useful was today’s session?</div>
 
-<button onclick="vote('neutral')">
-😐
-</button>
-
-<button onclick="vote('happy')">
-🙂
-</button>
-
+<div class="buttons">
+<button onclick="vote('useful', 'bad')">🙁</button>
+<button onclick="vote('useful', 'neutral')">😐</button>
+<button onclick="vote('useful', 'good')">🙂</button>
 </div>
 
 <div id="message"></div>
 
 <div id="stats">
+<h3>Live Stats</h3>
 
-😞 <span id="sadCount">0</span>
+<b>Enjoy</b><br>
+🙁 <span id="enjoy_bad">0</span> |
+😐 <span id="enjoy_neutral">0</span> |
+🙂 <span id="enjoy_good">0</span>
 
-|
+<br><br>
 
-😐 <span id="neutralCount">0</span>
-
-|
-
-🙂 <span id="happyCount">0</span>
-
+<b>Useful</b><br>
+🙁 <span id="useful_bad">0</span> |
+😐 <span id="useful_neutral">0</span> |
+🙂 <span id="useful_good">0</span>
 </div>
 
 <script>
-
 let counts = {
-sad:0,
-neutral:0,
-happy:0
+  enjoy: { bad:0, neutral:0, good:0 },
+  useful: { bad:0, neutral:0, good:0 }
 };
 
-function vote(type){
+function vote(question, type){
+  counts[question][type]++;
 
-counts[type]++;
+  document.getElementById(question + '_' + type).innerText =
+    counts[question][type];
 
-document.getElementById(type+'Count').innerText = counts[type];
+  document.getElementById('message').innerText = '✅ Thank you!';
 
-document.getElementById('message').innerText='✅ Thank you!';
-
-setTimeout(()=>{
-
-document.getElementById('message').innerText='';
-
-},2000);
-
+  setTimeout(()=>{
+    document.getElementById('message').innerText = '';
+  },2000);
 }
-
 </script>
 
 </body>
